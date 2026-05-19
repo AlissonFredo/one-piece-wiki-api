@@ -11,5 +11,8 @@ func RegisterRoutes(r *gin.Engine) {
 	})
 
 	characterRepoository := character.NewInMemoryRepository()
-	character.NewService(characterRepoository)
+	characterService := character.NewService(characterRepoository)
+	characterHandler := character.NewHandler(characterService)
+
+	r.POST("/characters", characterHandler.CreateCharacter)
 }
